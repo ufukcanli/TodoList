@@ -53,14 +53,6 @@ private extension ListViewController {
                 self.updateViewController()
             }
             .store(in: &cancellables)
-        
-        viewModel.$ascending
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.updateViewController()
-            }
-            .store(in: &cancellables)
     }
     
     func updateViewController() {
@@ -76,9 +68,8 @@ private extension ListViewController {
 // MARK: - Actions
 extension ListViewController {
     
-    @objc func filterButtonDidTap() {
-        viewModel.filterByTitle()
-        configureFilterButton(viewModel.ascending)
+    @objc func deleteAllButtonDidTap() {
+        viewModel.deleteAll()
     }
     
     @objc func addButtonDidTap() {

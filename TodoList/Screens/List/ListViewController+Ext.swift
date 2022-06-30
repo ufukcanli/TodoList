@@ -13,7 +13,7 @@ extension ListViewController {
     func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         title = TableView.navigationBarTitle
-        configureFilterButton()
+        configureDeleteAllButton()
         configureAddButton()
     }
     
@@ -35,16 +35,6 @@ extension ListViewController {
         ])
     }
     
-    func configureFilterButton(_ value: Bool = false) {
-        let filterButton = UIBarButtonItem(
-            image: value ? SFSymbols.filter2 : SFSymbols.filter,
-            style: .plain,
-            target: self,
-            action: #selector(filterButtonDidTap)
-        )
-        navigationItem.leftBarButtonItem = filterButton
-    }
-    
     func configureAddButton() {
         let addButton = UIBarButtonItem(
             image: SFSymbols.plus,
@@ -53,6 +43,16 @@ extension ListViewController {
             action: #selector(addButtonDidTap)
         )
         navigationItem.rightBarButtonItem = addButton
+    }
+    
+    func configureDeleteAllButton() {
+        let deleteAllButton = UIBarButtonItem(
+            image: SFSymbols.trashCircle,
+            style: .plain,
+            target: self,
+            action: #selector(deleteAllButtonDidTap)
+        )
+        navigationItem.leftBarButtonItem = deleteAllButton
     }
     
     func configureSearchController() {

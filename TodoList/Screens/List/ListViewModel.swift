@@ -10,7 +10,6 @@ import Combine
 final class ListViewModel: ObservableObject {
     
     @Published private(set) var list: [TodoItem] = []
-    @Published private(set) var ascending = false
         
     var numberOfRowsInSection: Int {
         return list.count
@@ -23,11 +22,6 @@ final class ListViewModel: ObservableObject {
     
     func listItem(at index: Int) -> TodoItem {
         return list[index]
-    }
-    
-    func filterByTitle() {
-        ascending.toggle()
-        reloadDataFromDB()
     }
     
     func toggleTodo(at index: Int, completion: @escaping (Bool) -> Void) {
@@ -58,15 +52,22 @@ final class ListViewModel: ObservableObject {
         }
     }
     
+    func deleteAll() {
+        PersistenceManager.shared.deleteAll { [weak self] _ in
+            guard let self = self else { return }
+            self.list = []
+        }
+    }
+    
     private func searchTodos(_ searchText: String) {
-        PersistenceManager.shared.fetchTodos(with: searchText, ascending) { [weak self] list in
+        PersistenceManager.shared.fetchTodos(with: searchText) { [weak self] list in
             guard let self = self else { return }
             self.list = list
         }
     }
     
     private func fetchTodos() {
-        PersistenceManager.shared.fetchTodos(ascending) { [weak self] list in
+        PersistenceManager.shared.fetchTodos { [weak self] list in
             guard let self = self else { return }
             self.list = list
         }

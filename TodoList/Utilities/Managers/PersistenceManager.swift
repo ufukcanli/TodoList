@@ -29,7 +29,6 @@ extension PersistenceManager {
     func createNewTodoItem(completion: @escaping (Bool) -> Void) {
         let newTodoItem = TodoItem(context: container.viewContext)
         newTodoItem.title = "New todo item \(Int.random(in: 0..<100))"
-        newTodoItem.completionDate = Date()
         
         do {
             if container.viewContext.hasChanges {
@@ -76,7 +75,6 @@ extension PersistenceManager {
     
     func fetchTodos(
         with searchText: String? = nil,
-        _ ascending: Bool? = nil,
         completion: @escaping ([TodoItem]) -> Void
     ) {
         let fetchRequest: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
@@ -86,14 +84,6 @@ extension PersistenceManager {
                 searchText
             )
         }
-        if let ascending = ascending {
-            fetchRequest.sortDescriptors = [
-                NSSortDescriptor(
-                    key: #keyPath(TodoItem.title),
-                    ascending: ascending
-                )
-            ]
-        }
         container.viewContext.perform {
             do {
                 let todos = try fetchRequest.execute()
@@ -102,6 +92,18 @@ extension PersistenceManager {
                 print("UNABLE TO EXECUTE FETCH REQUEST, \(error)")
                 completion([])
             }
+        }
+    }
+    
+    func deleteAll(completion: @escaping (NSBatchDeleteResult) -> Void) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = TodoItem.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+        
+        if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+            let changes = [NSDeletedObjectsKey: delete.result as? [NSManagedObjectID] ?? []]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [container.viewContext])
+            completion(delete)
         }
     }
 }

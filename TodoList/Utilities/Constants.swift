@@ -8,10 +8,9 @@
 import UIKit
 
 enum SFSymbols {
-    static let filter = UIImage(systemName: "line.horizontal.3.decrease.circle")
-    static let filter2 = UIImage(systemName: "line.3.horizontal.decrease.circle.fill")
     static let plus = UIImage(systemName: "plus.circle")
     static let trash = UIImage(systemName: "trash")
+    static let trashCircle = UIImage(systemName: "trash.circle")
     static let checkmark = UIImage(systemName: "person.fill.checkmark")
     static let xmark = UIImage(systemName: "person.fill.xmark")
     static let save = UIImage(systemName: "square.and.arrow.down")
