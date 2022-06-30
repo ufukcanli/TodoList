@@ -12,7 +12,12 @@
 		D258CE55286D72AD0024F42A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D258CE53286D72AD0024F42A /* LaunchScreen.storyboard */; };
 		D258CE5F286D82370024F42A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE5E286D82370024F42A /* Constants.swift */; };
 		D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE61286D83160024F42A /* PersistenceManager.swift */; };
-		D258CE65286D839C0024F42A /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE64286D839C0024F42A /* UITableView+Ext.swift */; };
+		D258CE69286D84140024F42A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE68286D84140024F42A /* ListViewController.swift */; };
+		D258CE6B286D84740024F42A /* ListViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE6A286D84740024F42A /* ListViewController+Ext.swift */; };
+		D258CE6D286D84A10024F42A /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE6C286D84A10024F42A /* ListViewModel.swift */; };
+		D258CE70286D84EE0024F42A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D258CE6E286D84EE0024F42A /* Model.xcdatamodeld */; };
+		D258CE73286D89E70024F42A /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE72286D89E70024F42A /* ListItemCell.swift */; };
+		D258CE75286D8A140024F42A /* ListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE74286D8A140024F42A /* ListItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +28,12 @@
 		D258CE56286D72AD0024F42A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D258CE5E286D82370024F42A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D258CE61286D83160024F42A /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
-		D258CE64286D839C0024F42A /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		D258CE68286D84140024F42A /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		D258CE6A286D84740024F42A /* ListViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+Ext.swift"; sourceTree = "<group>"; };
+		D258CE6C286D84A10024F42A /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		D258CE6F286D84EE0024F42A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		D258CE72286D89E70024F42A /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
+		D258CE74286D8A140024F42A /* ListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				D258CE5C286D81590024F42A /* Configuration */,
+				D258CE66286D83DB0024F42A /* Screens */,
 				D258CE5D286D821E0024F42A /* Utilities */,
 			);
 			path = TodoList;
@@ -68,6 +79,7 @@
 				D258CE48286D72AC0024F42A /* AppDelegate.swift */,
 				D258CE53286D72AD0024F42A /* LaunchScreen.storyboard */,
 				D258CE51286D72AD0024F42A /* Assets.xcassets */,
+				D258CE6E286D84EE0024F42A /* Model.xcdatamodeld */,
 				D258CE56286D72AD0024F42A /* Info.plist */,
 			);
 			path = Configuration;
@@ -94,9 +106,36 @@
 		D258CE63286D83770024F42A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D258CE64286D839C0024F42A /* UITableView+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D258CE66286D83DB0024F42A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D258CE67286D83F80024F42A /* List */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D258CE67286D83F80024F42A /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D258CE71286D89AB0024F42A /* ListItem */,
+				D258CE6C286D84A10024F42A /* ListViewModel.swift */,
+				D258CE68286D84140024F42A /* ListViewController.swift */,
+				D258CE6A286D84740024F42A /* ListViewController+Ext.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		D258CE71286D89AB0024F42A /* ListItem */ = {
+			isa = PBXGroup;
+			children = (
+				D258CE72286D89E70024F42A /* ListItemCell.swift */,
+				D258CE74286D8A140024F42A /* ListItemViewModel.swift */,
+			);
+			path = ListItem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,10 +208,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D258CE6B286D84740024F42A /* ListViewController+Ext.swift in Sources */,
 				D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */,
-				D258CE65286D839C0024F42A /* UITableView+Ext.swift in Sources */,
+				D258CE6D286D84A10024F42A /* ListViewModel.swift in Sources */,
+				D258CE75286D8A140024F42A /* ListItemViewModel.swift in Sources */,
+				D258CE70286D84EE0024F42A /* Model.xcdatamodeld in Sources */,
 				D258CE49286D72AC0024F42A /* AppDelegate.swift in Sources */,
+				D258CE69286D84140024F42A /* ListViewController.swift in Sources */,
 				D258CE5F286D82370024F42A /* Constants.swift in Sources */,
+				D258CE73286D89E70024F42A /* ListItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +426,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D258CE6E286D84EE0024F42A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D258CE6F286D84EE0024F42A /* Model.xcdatamodel */,
+			);
+			currentVersion = D258CE6F286D84EE0024F42A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D258CE3D286D72AC0024F42A /* Project object */;
 }

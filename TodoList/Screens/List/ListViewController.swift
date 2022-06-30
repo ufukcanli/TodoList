@@ -1,0 +1,138 @@
+//
+//  ListViewController.swift
+//  TodoList
+//
+//  Created by Ufuk Canlı on 30.06.2022.
+//
+
+import UIKit
+import Combine
+
+final class ListViewController: UITableViewController {
+    
+    lazy var searchController = UISearchController()
+    lazy var emptyStateLabel = UILabel()
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    private let viewModel: ListViewModel!
+
+    init(viewModel: ListViewModel = ListViewModel()) {
+        self.viewModel = viewModel
+        super.init(style: .insetGrouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureTableView()
+        configureNavigationBar()
+        configureSearchController()
+        configureEmptyStateLabel()
+        
+        bindViewModel()
+        viewModel.fetchTodos()
+    }
+}
+
+// MARK: - Actions
+extension ListViewController {
+    
+    @objc func filterButtonDidTap() {
+        viewModel.filterByCreationDate()
+    }
+    
+    @objc func addButtonDidTap() {
+        viewModel.addNewTodo()
+    }
+}
+
+// MARK: - Helpers
+extension ListViewController {
+    
+    func bindViewModel() {
+        viewModel.$list
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$ascending
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension ListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.fetchTodos(with: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.fetchTodos()
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension ListViewController {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        emptyStateLabel.isHidden = viewModel.shouldShowEmptyState
+        return viewModel.numberOfRowsInSection
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListItemViewModel.identifier, for: indexPath) as! ListItemCell
+        cell.populateCell(with: ListItemViewModel(todoItem: viewModel.listItem(at: indexPath.row)))
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ListViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+//        let detailViewController = DetailViewController()
+//        detailViewController.view.backgroundColor = .systemBackground
+//        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let completeAction = UIContextualAction(style: .normal, title: TableView.completeTitle) { [weak self] _, _, completion in
+            self?.viewModel.toggleTodo(at: indexPath.row)
+            self?.tableView.reloadData()
+            completion(true)
+        }
+        completeAction.backgroundColor = .systemGreen
+        completeAction.image = SFSymbols.checkmark
+        return UISwipeActionsConfiguration(actions: [completeAction])
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: TableView.deleteTitle) { [weak self] _, _, completion in
+            self?.viewModel.deleteTodo(at: indexPath.row)
+            self?.tableView.reloadData()
+            completion(true)
+        }
+        deleteAction.backgroundColor = .systemRed
+        deleteAction.image = SFSymbols.trash
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return TableView.rowHeight
+    }
+}
