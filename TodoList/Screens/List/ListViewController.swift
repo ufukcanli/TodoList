@@ -77,7 +77,8 @@ private extension ListViewController {
 extension ListViewController {
     
     @objc func filterButtonDidTap() {
-        viewModel.filterByCreationDate()
+        viewModel.filterByTitle()
+        configureFilterButton(viewModel.ascending)
     }
     
     @objc func addButtonDidTap() {
@@ -129,8 +130,8 @@ extension ListViewController {
                 self.updateViewController()
             }
         }
-        completeAction.backgroundColor = .systemGreen
-        completeAction.image = SFSymbols.checkmark
+        completeAction.backgroundColor = viewModel.listItem(at: indexPath.row).isCompleted ? .systemYellow : .systemGreen
+        completeAction.image = viewModel.listItem(at: indexPath.row).isCompleted ? SFSymbols.xmark : SFSymbols.checkmark
         return UISwipeActionsConfiguration(actions: [completeAction])
     }
     

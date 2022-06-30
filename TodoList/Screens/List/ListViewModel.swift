@@ -25,7 +25,7 @@ final class ListViewModel: ObservableObject {
         return list[index]
     }
     
-    func filterByCreationDate() {
+    func filterByTitle() {
         ascending.toggle()
         reloadDataFromDB()
     }

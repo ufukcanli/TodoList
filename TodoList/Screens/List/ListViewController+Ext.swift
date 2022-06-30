@@ -35,9 +35,9 @@ extension ListViewController {
         ])
     }
     
-    func configureFilterButton() {
+    func configureFilterButton(_ value: Bool = false) {
         let filterButton = UIBarButtonItem(
-            image: SFSymbols.filter,
+            image: value ? SFSymbols.filter2 : SFSymbols.filter,
             style: .plain,
             target: self,
             action: #selector(filterButtonDidTap)
