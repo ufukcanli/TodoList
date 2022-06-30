@@ -7,7 +7,7 @@
 
 import Combine
 
-final class ListViewModel {
+final class ListViewModel: ObservableObject {
     
     @Published private(set) var list: [TodoItem] = []
     @Published private(set) var ascending = false
@@ -30,11 +30,9 @@ final class ListViewModel {
         reloadDataFromDB()
     }
     
-    func toggleTodo(at index: Int) {
+    func toggleTodo(at index: Int, completion: @escaping (Bool) -> Void) {
         PersistenceManager.shared.toggleTodoItem(list[index]) { success in
-            if success {
-                // SHOW FEEDBACK TO THE USER
-            }
+            completion(success)
         }
     }
     
@@ -68,7 +66,7 @@ final class ListViewModel {
     }
     
     private func fetchTodos() {
-        PersistenceManager.shared.fetchTodos { [weak self] list in
+        PersistenceManager.shared.fetchTodos(ascending) { [weak self] list in
             guard let self = self else { return }
             self.list = list
         }

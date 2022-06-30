@@ -120,16 +120,14 @@ extension ListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let detailViewController = DetailViewController()
-//        detailViewController.view.backgroundColor = .systemBackground
-//        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let completeAction = UIContextualAction(style: .normal, title: TableView.completeTitle) { [weak self] _, _, completion in
-            self?.viewModel.toggleTodo(at: indexPath.row)
-            self?.tableView.reloadData()
-            completion(true)
+        let completeAction = UIContextualAction(style: .normal, title: TableView.completeTitle) { [weak self] _, _, _ in
+            guard let self = self else { return }
+            self.viewModel.toggleTodo(at: indexPath.row) { _ in
+                self.updateViewController()
+            }
         }
         completeAction.backgroundColor = .systemGreen
         completeAction.image = SFSymbols.checkmark
@@ -137,10 +135,9 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: TableView.deleteTitle) { [weak self] _, _, completion in
-            self?.viewModel.deleteTodo(at: indexPath.row)
-            self?.tableView.reloadData()
-            completion(true)
+        let deleteAction = UIContextualAction(style: .destructive, title: TableView.deleteTitle) { [weak self] _, _, _ in
+            guard let self = self else { return }
+            self.viewModel.deleteTodo(at: indexPath.row)
         }
         deleteAction.backgroundColor = .systemRed
         deleteAction.image = SFSymbols.trash
