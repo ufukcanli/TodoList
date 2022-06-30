@@ -11,6 +11,7 @@
 		D258CE52286D72AD0024F42A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D258CE51286D72AD0024F42A /* Assets.xcassets */; };
 		D258CE55286D72AD0024F42A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D258CE53286D72AD0024F42A /* LaunchScreen.storyboard */; };
 		D258CE5F286D82370024F42A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE5E286D82370024F42A /* Constants.swift */; };
+		D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE61286D83160024F42A /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		D258CE54286D72AD0024F42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D258CE56286D72AD0024F42A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D258CE5E286D82370024F42A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D258CE61286D83160024F42A /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +74,18 @@
 		D258CE5D286D821E0024F42A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D258CE60286D83070024F42A /* Managers */,
 				D258CE5E286D82370024F42A /* Constants.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D258CE60286D83070024F42A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D258CE61286D83160024F42A /* PersistenceManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */,
 				D258CE49286D72AC0024F42A /* AppDelegate.swift in Sources */,
 				D258CE5F286D82370024F42A /* Constants.swift in Sources */,
 			);
