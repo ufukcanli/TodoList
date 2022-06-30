@@ -22,6 +22,19 @@ extension ListViewController {
         tableView.register(ListItemCell.self, forCellReuseIdentifier: ListItemViewModel.identifier)
     }
     
+    func configureLoadingView() {
+        view.addSubview(loadingView)
+        
+        loadingView.isHidden = true
+        loadingView.startAnimating()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(lessThanOrEqualTo: view.topAnchor, constant: 250),
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
     func configureFilterButton() {
         let filterButton = UIBarButtonItem(
             image: SFSymbols.filter,

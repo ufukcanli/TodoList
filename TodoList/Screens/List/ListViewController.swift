@@ -10,6 +10,7 @@ import Combine
 
 final class ListViewController: UITableViewController {
     
+    lazy var loadingView = UIActivityIndicatorView(style: .large)
     lazy var searchController = UISearchController()
     lazy var emptyStateLabel = UILabel()
     
@@ -30,6 +31,7 @@ final class ListViewController: UITableViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureLoadingView()
         configureNavigationBar()
         configureSearchController()
         configureEmptyStateLabel()
@@ -38,6 +40,38 @@ final class ListViewController: UITableViewController {
         viewModel.fetchTodos()
     }
 }
+
+
+// MARK: - Helpers
+private extension ListViewController {
+    
+    func bindViewModel() {
+        viewModel.$list
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.updateViewController()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$ascending
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.updateViewController()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateViewController() {
+        self.loadingView.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.loadingView.stopAnimating()
+        }
+        self.tableView.reloadData()
+    }
+}
+
 
 // MARK: - Actions
 extension ListViewController {
@@ -51,27 +85,6 @@ extension ListViewController {
     }
 }
 
-// MARK: - Helpers
-extension ListViewController {
-    
-    func bindViewModel() {
-        viewModel.$list
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.tableView.reloadData()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$ascending
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.tableView.reloadData()
-            }
-            .store(in: &cancellables)
-    }
-}
 
 // MARK: - UISearchBarDelegate
 extension ListViewController: UISearchBarDelegate {
@@ -84,6 +97,7 @@ extension ListViewController: UISearchBarDelegate {
         viewModel.fetchTodos()
     }
 }
+
 
 // MARK: - UITableViewDataSource
 extension ListViewController {
@@ -99,6 +113,7 @@ extension ListViewController {
         return cell
     }
 }
+
 
 // MARK: - UITableViewDelegate
 extension ListViewController {
