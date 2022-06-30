@@ -54,9 +54,9 @@ final class ListViewModel: ObservableObject {
     }
     
     func deleteAll() {
-        PersistenceManager.shared.deleteAll { [weak self] result in
+        PersistenceManager.shared.deleteAll { [weak self] success in
             guard let self = self else { return }
-            if let _ = result { self.list = [] }
+            if success { self.list = [] }
         }
     }
     

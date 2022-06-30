@@ -95,15 +95,17 @@ extension PersistenceManager {
         }
     }
     
-    func deleteAll(completion: @escaping (Any?) -> Void) {
+    func deleteAll(completion: @escaping (Bool) -> Void) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = TodoItem.fetchRequest()
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        batchDeleteRequest.resultType = .resultTypeStatusOnly
+//        batchDeleteRequest.resultType = .resultTypeStatusOnly
         
-        if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
-            let changes = [NSDeletedObjectsKey: delete.result as? [NSManagedObjectID] ?? []]
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [container.viewContext])
-            completion(delete.result)
+        do {
+            _ = try container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
+            completion(true)
+        } catch {
+            debugPrint("UNABLE TO EXECUTE BATCH REQUEST, \(error)")
+            completion(false)
         }
     }
 }
