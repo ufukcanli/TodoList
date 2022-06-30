@@ -50,12 +50,20 @@
 		D258CE47286D72AC0024F42A /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				D258CE5C286D81590024F42A /* Configuration */,
+			);
+			path = TodoList;
+			sourceTree = "<group>";
+		};
+		D258CE5C286D81590024F42A /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
 				D258CE48286D72AC0024F42A /* AppDelegate.swift */,
 				D258CE53286D72AD0024F42A /* LaunchScreen.storyboard */,
 				D258CE51286D72AD0024F42A /* Assets.xcassets */,
 				D258CE56286D72AD0024F42A /* Info.plist */,
 			);
-			path = TodoList;
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,7 +279,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7995LB4979;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TodoList/Info.plist;
+				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -298,7 +306,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7995LB4979;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TodoList/Info.plist;
+				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
