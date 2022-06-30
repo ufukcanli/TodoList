@@ -12,6 +12,7 @@
 		D258CE55286D72AD0024F42A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D258CE53286D72AD0024F42A /* LaunchScreen.storyboard */; };
 		D258CE5F286D82370024F42A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE5E286D82370024F42A /* Constants.swift */; };
 		D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE61286D83160024F42A /* PersistenceManager.swift */; };
+		D258CE65286D839C0024F42A /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CE64286D839C0024F42A /* UITableView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D258CE56286D72AD0024F42A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D258CE5E286D82370024F42A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D258CE61286D83160024F42A /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		D258CE64286D839C0024F42A /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		D258CE5D286D821E0024F42A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D258CE63286D83770024F42A /* Extensions */,
 				D258CE60286D83070024F42A /* Managers */,
 				D258CE5E286D82370024F42A /* Constants.swift */,
 			);
@@ -86,6 +89,14 @@
 				D258CE61286D83160024F42A /* PersistenceManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		D258CE63286D83770024F42A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D258CE64286D839C0024F42A /* UITableView+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D258CE62286D83160024F42A /* PersistenceManager.swift in Sources */,
+				D258CE65286D839C0024F42A /* UITableView+Ext.swift in Sources */,
 				D258CE49286D72AC0024F42A /* AppDelegate.swift in Sources */,
 				D258CE5F286D82370024F42A /* Constants.swift in Sources */,
 			);
