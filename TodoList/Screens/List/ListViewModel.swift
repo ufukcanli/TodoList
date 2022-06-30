@@ -21,7 +21,8 @@ final class ListViewModel: ObservableObject {
     }
     
     func listItem(at index: Int) -> TodoItem {
-        return list[index]
+        let item = list[index]
+        return item
     }
     
     func toggleTodo(at index: Int, completion: @escaping (Bool) -> Void) {
@@ -53,9 +54,9 @@ final class ListViewModel: ObservableObject {
     }
     
     func deleteAll() {
-        PersistenceManager.shared.deleteAll { [weak self] _ in
+        PersistenceManager.shared.deleteAll { [weak self] result in
             guard let self = self else { return }
-            self.list = []
+            if let _ = result { self.list = [] }
         }
     }
     
