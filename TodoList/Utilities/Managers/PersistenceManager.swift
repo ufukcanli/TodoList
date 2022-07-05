@@ -29,7 +29,6 @@ extension PersistenceManager {
     func createNewTodoItem(completion: @escaping (Bool) -> Void) {
         let newTodoItem = TodoItem(context: container.viewContext)
         newTodoItem.title = "New todo item \(Int.random(in: 0..<100))"
-        
         do {
             if container.viewContext.hasChanges {
                 try container.viewContext.save()
@@ -89,7 +88,7 @@ extension PersistenceManager {
                 let todos = try fetchRequest.execute()
                 completion(todos)
             } catch {
-                print("UNABLE TO EXECUTE FETCH REQUEST, \(error)")
+                debugPrint("UNABLE TO EXECUTE FETCH REQUEST, \(error)")
                 completion([])
             }
         }
@@ -99,7 +98,6 @@ extension PersistenceManager {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = TodoItem.fetchRequest()
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 //        batchDeleteRequest.resultType = .resultTypeStatusOnly
-        
         do {
             _ = try container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
             completion(true)
